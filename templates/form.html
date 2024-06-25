@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/form.css') }}">
+</head>
+
+<body>
+
+  <div class="logo">
+    <img src="{{url_for('static' , filename='images/Biomed.png' ) }}" alt="">
+  </div>
+
+  <div class="form-body">
+    <div class="row">
+      <div class="form-holder">
+        <div class="form-content">
+          <div class="form-items">
+            <h3 style="text-align: center;">12P Tailor-made Probiotics Panel Request Form</h3>
+            <form class="requires-validation" action="/submit-details" method="POST">
+
+
+              <br><br>
+              <p style="text-align: center;">Please Enter the number you see on the test kit</p>
+              <div class="test-kit-number">
+                <div class="kit-info">
+                  <input class="form-control" type="text" name="name" placeholder="2024062045" required>
+                </div>
+
+                <div class="kit-image">
+                  <img src="{{ url_for('static' , filename='images/demo.png' )}}" alt="">
+                </div>
+
+              </div>
+
+
+              <br><br>
+              <div class="">
+                <input class="form-control" type="text" name="surname" placeholder="Surname" required>
+              </div>
+
+              <div class="">
+                <input class="form-control" type="text" name="given_name" placeholder="Given Name" required>
+              </div>
+
+
+              <div class="">
+                <input class="form-control" type="text" name="hkid_number" placeholder="M123456(7)" required>
+              </div>
+
+              <div class="">
+                <input class="form-control" type="text" name="passport_number"
+                  placeholder="Pasport Number(only if no HKID)" >
+              </div>
+
+              <div class="div-container">
+                <label for="date_of_birth">Date of Birth : </label>
+                <input class="form-control" type="date" name="date_of_birth" placeholder="26/12/1980" required>
+              </div>
+
+
+              <div class="div-container">
+                <label class="mb-3 mr-1" for="gender">Gender : </label>
+
+                <input type="radio" class="btn-check" name="gender" id="male" value="Male" autocomplete="off" required>
+                <label class="btn btn-sm btn-outline-secondary" for="male">Male</label>
+
+                <input type="radio" class="btn-check" name="gender" id="female" value="Female" autocomplete="off"
+                  required>
+                <label class="btn btn-sm btn-outline-secondary" for="female">Female</label>
+              </div>
+
+              <div class="div-container">
+                <!--<label for="height">Height </label>-->
+                <input class="form-control" type="number" name="height" placeholder="Enter height in centimeters (185)"
+                  required>
+              </div>
+
+              <div class="div-container">
+                <!--<label for="weight">Weight</label>-->
+                <input class="form-control" type="number" name="weight" placeholder="Enter weight in kilograms (80)"
+                  required>
+              </div>
+
+              <div class="div-container">
+                <input class="form-control" type="email" name="email" placeholder="E-mail Address" required>
+              </div>
+
+              <div class="div-container">
+                <label class="mb-3 mr-1" for="ethnicity">Ethnicity: </label><br>
+
+                <div class="choice_background">
+                  <input type="radio" class="btn-check" name="ethnicity" id="chinese" value="Chinese" autocomplete="off"
+                    required>
+                  <label class="btn btn-sm btn-outline-secondary" for="chinese">Chinese</label>
+
+                  <input type="radio" class="btn-check" name="ethnicity" id="east_asian" value="East Asian"
+                    autocomplete="off" required>
+                  <label class="btn btn-sm btn-outline-secondary" for="east_asian">East Asian</label>
+
+                  <input type="radio" class="btn-check" name="ethnicity" id="southeast_asian" value="Southeast Asian"
+                    autocomplete="off" required>
+                  <label class="btn btn-sm btn-outline-secondary" for="southeast_asian">Southeast Asian</label>
+
+                  <input type="radio" class="btn-check" name="ethnicity" id="african" value="African" autocomplete="off"
+                    required>
+                  <label class="btn btn-sm btn-outline-secondary" for="african">African</label>
+
+                  <br>
+
+                  <input type="radio" class="btn-check" name="ethnicity" id="european" value="European"
+                    autocomplete="off" required>
+                  <label class="btn btn-sm btn-outline-secondary" for="european">European</label>
+
+                  <input type="radio" class="btn-check" name="ethnicity" id="north_american" value="North American"
+                    autocomplete="off" required>
+                  <label class="btn btn-sm btn-outline-secondary" for="north_american">North American</label>
+
+                  <input type="radio" class="btn-check" name="ethnicity" id="south_american" value="South American"
+                    autocomplete="off" required>
+                  <label class="btn btn-sm btn-outline-secondary" for="south_american">South American</label>
+                </div>
+              </div>
+
+
+              <div class="div-container">
+                <label class="mb-3 mr-1" for="report_language">Report Language : </label><br>
+
+                <input type="radio" class="btn-check" name="report_language" id="traditional_chinese"
+                  value="Traditional Chinese" autocomplete="off" required>
+                <label class="btn btn-sm btn-outline-secondary" for="report_language">Traditional Chinese</label>
+
+                <input type="radio" class="btn-check" name="report_language" id="simplified_chinese"
+                  value="Simplified Chinese" autocomplete="off" required>
+                <label class="btn btn-sm btn-outline-secondary" for="report_language">Simplified Chinese</label>
+
+                <input type="radio" class="btn-check" name="report_language" id='english' value="English"
+                  autocomplete="off" required>
+                <label class="btn btn-sm btn-outline-secondary" for="report_language">English</label>
+              </div>
+
+
+              <div class="div-container">
+                <input class="form-control" type="text" name="postal_address" placeholder="Postal  Address" required>
+              </div>
+
+              <div class="div-container">
+                <input class="form-control" type="number" name="phone_number"
+                  placeholder="Enter your contact phone number (21777899)" required>
+              </div>
+
+
+              <br><br>
+              <div class="div-container">
+                <label for="previous test"> Has participant ever participated in our test(s) ?</label>
+
+                <input type="radio" class="btn-check" name="previous_test" id="yes" value="yes" autocomplete="off"
+                  required>
+                <label class="btn btn-sm btn-outline-secondary" for="yes">Yes</label>
+
+                <input type="radio" class="btn-check" name="previous_test" id="no" value="no" autocomplete="off"
+                  required>
+                <label class="btn btn-sm btn-outline-secondary" for="no">No</label>
+              </div>
+
+
+              <div class="div-container previous_info">
+                <p>Only Fill this if you have previously taken the tests</p>
+
+                <label for="previous_test_date">Previous Test Date: </label>
+                <input class="form-control" type="date" name="previous_test_date" placeholder="26/12/2002">
+
+                <!--<label for="previous_test_performed">Previous Test Performed: </label>-->
+                <input class="form-control" type="text" name="previous_test_performed"
+                  placeholder="Name of Previous Test">
+              </div>
+
+
+                <br>
+              <div class="div-container previous_info">
+                  <p style="text-align: center;">For Applicants under the age of 18</p>
+
+                <input class="form-control" type="text" name="parent_name" placeholder="Parent Name">
+
+                <input class="form-control" type="text" name="parent_hkid" 
+                  placeholder="Parent HKID">
+              </div>
+
+
+              <div class="button-div">
+                <button id="submit" type="submit" class="btn btn-primary">Register</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      'use strict'
+      const forms = document.querySelectorAll('.requires-validation')
+      Array.from(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+
+            form.classList.add('was-validated')
+          }, false)
+        })
+    })()
+  </script>
+</body>
+
+</html>
