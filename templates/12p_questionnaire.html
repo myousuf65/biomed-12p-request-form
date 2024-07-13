@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static' , filename='images/biomedl.png')  }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/form.css') }}">
+  <style>
+    p {
+      color: yellow;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="logo">
+    <img src="{{url_for('static' , filename='images/Biomed.png' ) }}" alt="">
+  </div>
+
+  <div class="form-body">
+    <div class="row">
+      <div class="form-holder">
+        <div class="form-content">
+          <div class="form-items">
+
+            <div class="header">
+              <h3 style="text-align: center;">Concerned Health Issues</h3>
+            </div>
+
+
+            <form action="/submit-questions" method="post">
+
+                <input name="test_kit_id" id="test_kit_id" value="" hidden />
+
+              <div class="question">
+                <p>1. Do you have food allergies (e.g. eggs, peanuts, seafood, etc.)?
+                  您有食物過敏(例如: 雞蛋、花生、海鮮等)嗎?
+                </p>
+                <div class="choice">
+                  <input type="radio" id="question1" name="question1" value="沒有 No">
+                  <label for="question1">沒有 No</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="question1" name="question1" value="輕微 Slight">
+                  <label for="question1">輕微 Slight</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="question1" name="question1" value="中度 Moderate">
+                  <label for="question1">中度 Moderate</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="question1_serious" name="question1" value="嚴重 Serious">
+                  <label for="question1">嚴重 Serious</label>
+                </div>
+              </div>
+
+              <br>
+              <div class="question">
+                <p>2. Do you have environmental allergies (e.g. pollen, dust mites, etc.)?
+                  您有環境過敏(例如: 花粉、塵蟎等)嗎?
+                </p>
+                <div class="choice">
+                  <input type="radio" id="question2" name="question2" value="沒有 No">
+                  <label for="question">沒有 No</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="question2" name="question2" value="輕微 Slight">
+                  <label for="question2">輕微 Slight</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="question2" name="question2" value="中度 Moderate">
+                  <label for="question2">中度 Moderate</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="question2" name="question2" value="嚴重 Serious">
+                  <label for="question2">嚴重 Serious</label>
+                </div>
+              </div>
+
+              <br>
+              <div class="question">
+                <p>3. Do you have ever had eczema?
+                  您是否曾經患有濕疹?
+                </p>
+                <div class="choice">
+                  <input type="radio" id="question3" name="question3" value="Never, 不曾試過">
+                  <label for="question3">Never, 不曾試過</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="question3" name="question3" value="Yes 現在患有">
+                  <label for="question3">Yes 現在患有</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="question3" name="question3" value="Yes, but cured 有，但已痊癒 ">
+                  <label for="question3">Yes, but cured 有，但已痊癒 </label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="question3" name="question3" value="Not sure 不清楚">
+                  <label for="question3">Not sure 不清楚</label>
+                </div>
+
+                <div class="choice">
+                  <input type="radio" id="question3" name="question3" value="Yes, recurrent illness 有，而且病情反覆發作">
+                  <label for="question3">Yes, recurrent illness 有，而且病情反覆發作</label>
+                </div>
+              </div>
+
+              <br>
+              <div class="question">
+                <p>4. Do you suffer from allergic rhinitis or asthma?
+                  您是否患有鼻敏感或哮喘?
+                </p>
+                <div class="choice">
+                  <input type="radio" id="question4" name="question4" value="沒有 No">
+                  <label for="question4">沒有 No</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="question4" name="question4" value="輕微 Slight">
+                  <label for="question4">1 of them 其中一種</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="question4" name="question4" value="中度 Moderate">
+                  <label for="question4">Both 全部兩種</label>
+                </div>
+              </div>
+
+              <br>
+
+              <div class="question">
+                <p>
+                  5. What was your birth delivery mode?
+                  您在出生的時候是剖腹產還是順產?
+                </p>
+                <div class="choice">
+                  <input type="radio" id="question5" name="question5" value="Vaginal delivery 順產">
+                  <label for="question5">Vaginal delivery 順產</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="question5" name="question5" value="Not sure 不清楚">
+                  <label for="question5">Not sure 不清楚</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="question5" name="question5" value="Caesarean delivery 剖腹產">
+                  <label for="question5">Caesarean delivery 剖腹產</label>
+                </div>
+              </div>
+
+              <br>
+              <div class="question">
+                <p>6. Have you taken probiotics supplements over the past three months?
+                  您在過去三個月內是否有服食益生菌或相關補充品?
+                </p>
+                <div class="choice">
+                  <input type="radio" id="question6" name="question6" value="Yes, please specify 有，請註明">
+                  <label for="question6">Yes, please specify 有，請註明</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="question6" name="question6" value="No 沒有">
+                  <label for="question6">No 沒有</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="question6" name="question6" value="Not sure 不清楚">
+                  <label for="question6">Not sure 不清楚"</label>
+                </div>
+              </div>
+
+              <br>
+              <div class="question">
+                <p>7. Have you taken antibiotics in the past month?
+                  您在過去一個月是否有服食抗生素或相關的藥物?
+                </p>
+                <div class="choice">
+                  <input type="checkbox" id="question7" name="question7" value="No 沒有">
+                  <label for="question7">No 沒有</label>
+                </div>
+                <div class="choice">
+                  <input type="checkbox" id="question7" name="question7" value="Not sure 不清楚">
+                  <label for="question7">Not sure 不清楚"</label>
+                </div>
+                <div class="choice">
+                  <input type="text" id="question7" name="question7" placeholder="if yes, please specify 有，請註明">
+                </div>
+              </div>
+
+              <br>
+              <div class="question">
+                <p>8. Do you have persistent diarrhea? If yes, please specify the frequency (e.g. how many times of
+                  excretion
+                  a day).
+                  您有沒有持續的腹瀉? 如有，請註明排便頻率(例如一天多少次)
+                </p>
+                <div class="choice">
+                  <input type="checkbox" id="question8" name="question8" value="No 沒有">
+                  <label for="question8">No 沒有</label>
+                </div>
+                <div class="choice">
+                  <input type="text" id="question8" name="question8" placeholder="Yes, please specify 有，請註明">
+                </div>
+              </div>
+
+              <br>
+              <div class="question">
+                <p>9. Do you have persistent constipation? If yes, please specify the frequency (e.g. how many times of
+                  excretion a day).
+                  您有沒有持續的便秘? 如有，請註明排便頻率(例如一天多少次)
+                </p>
+                <div class="choice">
+                  <input type="checkbox" id="question9" name="question9" value="No 沒有">
+                  <label for="question9">No 沒有</label>
+                </div>
+                <div class="choice">
+                  <input type="text" id="question9" name="question9" placeholder="Yes, please specify 有，請註明">
+                </div>
+              </div>
+
+              <br>
+              <div class="question">
+                <p>
+                  10. Do you have an uncomfortable stomach? If yes, please specify the frequency.
+                  您有胃部不適的問題嗎? 如有，請註明頻率
+
+                </p>
+                <div class="choice">
+                  <input type="checkbox" id="question10" name="question10" value="No 沒有">
+                  <label for="question10">No 沒有</label>
+                </div>
+                <div class="choice">
+                  <input type="text" id="question10" name="question10" placeholder="Yes, please specify 有，請註明">
+                </div>
+              </div>
+
+              <br>
+              <div class="question">
+                <p>
+                  11. Do you often get colds and flus? If yes, please specify the frequency.
+                  您會經常患傷風感冒嗎? 如有，請註明頻率
+                </p>
+                <div class="choice">
+                  <input type="checkbox" id="question11" name="question11" value="No 沒有">
+                  <label for="question11">No 沒有</label>
+                </div>
+                <div class="choice">
+                  <input type="text" id="question11" name="question11" placeholder="Yes, please specify 有，請註明">
+                </div>
+              </div>
+
+              <br>
+              <div class="question">
+                <p>
+                  12.
+                  What do you find about your body weight?
+                  您認為自己的體重是:
+
+                </p>
+                <div class="choice">
+                  <input type="radio" id="question12" name="question12" value="Standard 標準">
+                  <label for="question12">Standard 標準</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="question12" name="question12" value="Slightly too heavy/too light 輕微過重/過輕">
+                  <label for="question12">Slightly too heavy/too light 輕微過重/過輕</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="question12" name="question12" value="Too heavy/too light 過重/過輕">
+                  <label for="question12">Too heavy/too light 過重/過輕</label>
+                </div>
+
+                <div class="choice">
+                  <input type="radio" id="question12" name="question12" value="Severely too heavy/too light 嚴重過重/過輕">
+                  <label for="question12">Severely too heavy/too light 嚴重過重/過輕</label>
+                </div>
+              </div>
+
+
+              <br>
+              <div class="question">
+                <p>
+                  13. How often do you eat high fat or high cholesterol food?
+                  您會進食含高脂肪或高膽固醇的食物嗎?
+                </p>
+                <div class="choice">
+                  <input type="radio" id="question13" name="question13" value="No 沒有">
+                  <label for="question13">No 沒有</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="question13" name="question13" value="Seldom 甚少">
+                  <label for="question13">Seldom 甚少</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="question13" name="question13"
+                    value="Sometimes (1-2 times a month) 有時（每個月1-2次）">
+                  <label for="question13">Sometimes (1-2 times a month) 有時（每個月1-2次）</label>
+                </div>
+
+                <div class="choice">
+                  <input type="radio" id="question13" name="question13" value="Frequently (once in 2 weeks or more) 經常">
+                  <label for="question13">Frequently (once in 2 weeks or more) 經常</label>
+                </div>
+              </div>
+
+              <br>
+              <div class="question">
+                <p>
+                  14. How often do you eat snacks or desserts?
+                  您會進食糖類或甜食嗎?
+                </p>
+                <div class="choice">
+                  <input type="radio" id="question14" name="question14" value="No 沒有">
+                  <label for="question14">No 沒有</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="question14" name="question14" value="Seldom 甚少">
+                  <label for="question14">Seldom 甚少</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="question14" name="question14"
+                    value="Sometimes (1-2 times a month) 有時（每個月1-2次）">
+                  <label for="question14">Sometimes (1-2 times a month) 有時（每個月1-2次）</label>
+                </div>
+
+                <div class="choice">
+                  <input type="radio" id="question14" name="question14" value="Frequently (once in 2 weeks or more) 經常">
+                  <label for="question14">Frequently (once in 2 weeks or more) 經常</label>
+                </div>
+              </div>
+
+                <br>
+              <div class="question">
+                <p>
+                  15. Do you have high blood pressure, high blood cholesterol/triglycerides or high blood sugar?
+                  您有高血壓、高膽固醇/高血脂或高血糖嗎?
+                </p>
+                <div class="choice">
+                  <input type="radio" id="question15" name="question15" value="No 沒有">
+                  <label for="question15">No 沒有</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="question15" name="question15" value="1 of them 其中一種">
+                  <label for="question15">1 of them 其中一種</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="question15" name="question15" value="2 of them 其中兩種">
+                  <label for="question15">2 of them 其中兩種</label>
+                </div>
+
+                <div class="choice">
+                  <input type="radio" id="question15" name="question15" value="All of them 全部三種">
+                  <label for="question15">All of them 全部三種</label>
+                </div>
+              </div>
+
+
+                <br>
+              <div class="question">
+                <p> 16. Do you have metabolic arthritis?
+                  您患有痛風嗎?
+                </p>
+                <div class="choice">
+                  <input type="radio" id="question16" name="question16" value="No 沒有">
+                  <label for="question16">No 沒有</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="question16" name="question16" value="Yes 有">
+                  <label for="question16">Yes 有</label>
+                </div>
+              </div>
+
+                <br>
+              <div class="question">
+                <p>17. Do you have an autoimmune disease (e.g. rheumatoid arthritis, systemic lupus erythematosus,
+                  etc.)?
+                  您是否患有自體免疫疾病(例如: 類風濕性關節炎、全身性紅斑狼瘡等)?
+                </p>
+                <div class="choice">
+                  <input type="radio" id="question17" name="question17" value="No 沒有">
+                  <label for="question17">No 沒有</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="question17" name="question17" value="Yes 有">
+                  <label for="question17">Yes 有</label>
+                </div>
+              </div>
+
+                <center><button type="submit">Submit</button></center>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <script type="text/javascript">
+     
+      const url = window.location.href;
+
+      // Create a URL object
+      const urlObj = new URL(url);
+
+      // Get the query parameters
+      const urlParams = new URLSearchParams(urlObj.search);
+
+      // Get the value of the 'name' parameter
+      const nameParam = urlParams.get('name');
+
+      // Display the value in an alert
+      if(nameParam === null){
+        window.location.href = "/error"
+      }else{
+        document.getElementById("test_kit_id").value = nameParam
+      }
+    
+      
+      (function () {
+        'use strict'
+        const forms = document.querySelectorAll('.requires-validation')
+        Array.from(forms)
+          .forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+              if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+              }
+
+              form.classList.add('was-validated')
+            }, false)
+          })
+      })()
+    </script>
+</body>
+
+</html>

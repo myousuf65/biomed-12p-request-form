@@ -60,11 +60,11 @@ body {
 }
 
 .form-content p {
-  color: #fff;
+  color: lightgreen;
   text-align: left;
-  font-size: 17px;
   font-weight: 300;
   line-height: 20px;
+  font-weight: 500;
 }
 
 .form-content label,
@@ -87,6 +87,7 @@ body {
   font-size: 15px;
   font-weight: 300;
   color: #8D8D8D;
+  color: black;
   transition: all 0.3s ease;
   margin-top: 16px;
 }
@@ -190,35 +191,106 @@ input::-webkit-inner-spin-button {
   padding: 5px
 }
 
-.previous_info{
-  border: 1px solid yellow;
+.previous_info {
+  border: 1px solid lightgreen;
   padding: 10px;
   border-radius: 10px;
 }
 
-.button-div{
+.button-div {
   display: flex;
   justify-content: center;
   padding: 10px
 }
 
-.test-kit-number{
+.test-kit-number {
   display: flex;
-  border: 1px dotted yellow;
+  border: 1px solid lightgreen;
   padding: 10px;
   border-radius: 10px;
 }
 
-.kit-info{
+.kit-info {
   width: 50%;
 }
 
 .kit-image {
-    width: 50%
+  width: 50%
 }
 
-.kit-image > img {
+.kit-image>img {
   width: 100%;
   border-radius: 5px;
+  max-height: 200px;
+  object-fit: contain;
+}
+
+.modal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  padding-top: 60px;
+  display: none;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  border-radius: 10px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#confirmSubmit,
+#cancelSubmit {
+  cursor: pointer;
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 10px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+}
+
+#cancelSubmit {
+  background-color: #dc3545;
+}
+
+.modal-input{
+  padding: 10px;
+}
+
+.qa-pair {
+  display: flex;
+}
+
+.question_form{
+  width: 30%
+}
+
+.answer{
 
 }

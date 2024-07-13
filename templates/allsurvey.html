@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static' , filename='images/biomedl.png')  }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/project_code.css') }}">
+  <title>All Survey Results</title>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-light p-3" style="background-color: #e3f2fd;">
+    <a class="navbar-brand" href="#">BioMed Technology Holdings Limited</a>
+
+
+    <div class="right-div" id="navbarNav">
+      <button class="btn btn-primary">Add Project Code</button>
+      <a class="navbar-brand" href="/serial_num">Serial Nums</a>
+
+      <input type="search" class="form-control rounded" onkeydown="search(this)" placeholder="Search"
+        aria-label="Search" aria-describedby="search-addon" style="width: 50%;" />
+    </div>
+  </nav>
+
+
+  {% for item in all_ans %}
+  <div class="single-item">
+    <div>{{item[0]}}</div>
+    <button onclick="showModal('{{item[0]}}')" class="btn btn-secondary">View all answers</button>
+    <div class="modal" id="{{item[0]}}">
+      <div class="modal-content">
+
+
+        <div class="survey-header">
+          <h1 class="survey-topic">Answers for {{item[0]}}</h1>
+          <span class="close" onclick="closeModal('{{item[0]}}')">&times;</span>
+        </div>
+        <hr>
+
+        <div class="qa-pair2">
+          <div style="display: block;" class="question_form2">1. Do you have food allergies (e.g. eggs, peanuts,
+            seafood,
+            etc.)? 您有食物過敏(例如: 雞蛋、花生、海鮮等)嗎?</div>
+          <div class="answer2">{{item[1]}}</div>
+        </div>
+
+        <div class="qa-pair2">
+          <div style="display: block;" class="question_form2">2. Do you have environmental allergies (e.g. pollen, dust
+            mites, etc.)? 您有環境過敏(例如: 花粉、塵蟎等)嗎?</div>
+          <div class="answer2">{{item[2]}}</div>
+        </div>
+
+        <div class="qa-pair2">
+          <div style="display: block;" class="question_form2">3. Do you have ever had eczema? 您是否曾經患有濕疹?</div>
+          <div class="answer2">{{item[3]}}</div>
+        </div>
+
+        <div class="qa-pair2">
+          <div style="display: block;" class="question_form2">4. Do you suffer from allergic rhinitis or asthma?
+            您是否患有鼻敏感或哮喘?</div>
+          <div class="answer2">{{item[4]}}</div>
+        </div>
+
+
+        <div class="qa-pair2">
+          <div style="display: block;" class="question_form2">5. What was your birth delivery mode? 您在出生的時候是剖腹產還是順產?
+          </div>
+          <div class="answer2">{{item[5]}}</div>
+        </div>
+
+        <div class="qa-pair2">
+          <div style="display: block;" class="question_form2">6. Have you taken probiotics supplements over the past
+            three
+            months? 您在過去三個月內是否有服食益生菌或相關補充品?</div>
+          <div class="answer2">{{item[6]}}</div>
+        </div>
+
+        <div class="qa-pair2">
+          <div style="display: block;" class="question_form2">7. Have you taken antibiotics in the past month?
+            您在過去一個月是否有服食抗生素或相關的藥物?</div>
+          <div class="answer2">{{item[7]}}</div>
+        </div>
+
+        <div class="qa-pair2">
+          <div style="display: block;" class="question_form2">8. Do you have persistent diarrhea? If yes, please specify
+            the frequency (e.g. how many times of excretion a day). 您有沒有持續的腹瀉? 如有，請註明排便頻率(例如一天多少次)</div>
+          <div class="answer2">{{item[8]}}</div>
+        </div>
+
+        <div class="qa-pair2">
+          <div style="display: block;" class="question_form2">9. Do you have persistent constipation? If yes, please
+            specify the frequency (e.g. how many times of excretion a day). 您有沒有持續的便秘? 如有，請註明排便頻率(例如一天多少次)</div>
+          <div class="answer2">{{item[9]}}</div>
+        </div>
+
+
+        <div class="qa-pair2">
+          <div style="display: block;" class="question_form2">10. Do you have an uncomfortable stomach? If yes, please
+            specify the frequency. 您有胃部不適的問題嗎? 如有，請註明頻率</div>
+          <div class="answer2">{{item[10]}}</div>
+        </div>
+
+        <div class="qa-pair2">
+          <div style="display: block;" class="question_form2">11. Do you often get colds and flus? If yes, please
+            specify
+            the frequency. 您會經常患傷風感冒嗎? 如有，請註明頻率</div>
+          <div class="answer2">{{item[11]}}</div>
+        </div>
+
+        <div class="qa-pair2">
+          <div style="display: block;" class="question_form2">12. What do you find about your body weight? 您認為自己的體重是:
+          </div>
+          <div class="answer2">{{item[12]}}</div>
+        </div>
+
+        <div class="qa-pair2">
+          <div style="display: block;" class="question_form2">13. How often do you eat high fat or high cholesterol
+            food?
+            您會進食含高脂肪或高膽固醇的食物嗎?</div>
+          <div class="answer2">{{item[13]}}</div>
+        </div>
+
+
+        <div class="qa-pair2">
+          <div style="display: block;" class="question_form2">14. How often do you eat snacks or desserts? 您會進食糖類或甜食嗎?
+          </div>
+          <div class="answer2">{{item[14]}}</div>
+        </div>
+
+
+        <div class="qa-pair2">
+          <div style="display: block;" class="question_form2">15. Do you have high blood pressure, high blood
+            cholesterol/triglycerides or high blood sugar? 您有高血壓、高膽固醇/高血脂或高血糖嗎?</div>
+          <div class="answer2">{{item[15]}}</div>
+        </div>
+
+        <div class="qa-pair2">
+          <div style="display: block;" class="question_form2">16. Do you have metabolic arthritis? 您患有痛風嗎?</div>
+          <div class="answer2">{{item[16]}}</div>
+        </div>
+
+        <div class="qa-pair2">
+          <div style="display: block;" class="question_form2">17. Do you have an autoimmune disease (e.g. rheumatoid
+            arthritis, systemic lupus erythematosus, etc.)? 您是否患有自體免疫疾病(例如: 類風濕性關節炎、全身性紅斑狼瘡等)?</div>
+          <div class="answer2">{{item[17]}}</div>
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+  <script>
+    //
+    function closeModal(modalId) {
+      var modal = document.getElementById(modalId);
+      console.log(modal)
+      modal.style.display = 'none';
+    }
+
+
+    //
+    function showModal(modalId) {
+      var modal = document.getElementById(modalId);
+      modal.style.display = 'block';
+    }
+  </script>
+  </script>
+</body>
+
+</html>

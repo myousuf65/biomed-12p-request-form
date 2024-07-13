@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/project_code.css') }}">
+
+
+</head>
+
+<body>
+
+
+  {% include "navbar.html" %}
+
+  <div class="title">
+    <h3 style="text-align: center;margin: 30px;">{{pc}} - {{ pn }}</h3>
+  </div>
+
+  <div class="orderdiv">
+    <form class="orderform" action="/add-order" method="post">
+      <h4>Input Order Details</h4>
+
+      <input hidden name="project_code" value={{pc}} />
+
+      <input type="text" class="add-text" name="route" placeholder="route">
+
+      <input type="number" class="add-text" name="quantity" placeholder="quantity">
+      <label for="order_type">Order type: </label>
+
+      <div class="selection">
+        <label for="order_type">12P Tailor-made Probiotics Panel </label>
+        <input type="radio" name="order_type" value="12p">
+      </div>
+
+      <div class="selection">
+        <label for="order_type">13P Tailor-made Probiotics Panel </label>
+        <input type="radio" name="order_type" value="13p">
+      </div>
+
+
+      <div class="selection">
+        <label for="order_type">16S rRNA Oral Microbiome Test</label>
+        <input type="radio" name="order_type" value="16s_oral">
+      </div>
+
+      <div class="selection">
+        <label for="order_type">16S rRNA Gut Microbiome Test</label>
+        <input type="radio" name="order_type" value="16s_gut">
+      </div>
+
+      <div class="selection">
+        <label for="order_type">11P Tailor-made Probiotics Panel</label>
+        <input type="radio" name="order_type" value="11p">
+      </div>
+
+      <div class="selection">
+        <label for="order_type">23B Personalised Probiotics Testing Panel </label>
+        <input type="radio" name="order_type" value="23b">
+      </div>
+
+      <div class="selection">
+        <label for="order_type">口水檢測</label>
+        <input type="radio" name="order_type" value="口水檢測">
+      </div>
+
+      <div class="selection">
+        <label for="order_type">Obesity Testing Panel Request Form</label>
+        <input type="radio" name="order_type" value="obesity">
+      </div>
+
+      <div class="selection">
+        <label for="order_type">Immunity Testing Panel Request Form</label>
+        <input type="radio" name="order_type" value="immunity">
+      </div>
+
+
+      <div class="selection">
+        <label for="order_type">腸道核酸檢測 Platinum 白金組合</label>
+        <input type="radio" name="order_type" value="platinum">
+      </div>
+
+
+      <div class="selection">
+        <label for="order_type">腸道核酸檢測 白金測試組合/個人化益生菌測試組合</label>
+        <input type="radio" name="order_type" value="??">
+      </div>
+
+
+      <div class="selection">
+        <label for="order_type">Petcare Probiotics Panel Request Form</label>
+        <input type="radio" name="order_type" value="petcare">
+      </div>
+
+      <div class="selection">
+        <label for="order_type">口腔核酸檢測</label>
+        <input type="radio" name="order_type" value="oral_microbiome">
+      </div>
+
+      <div class="selection">
+        <label for="order_type">5S Fluorescent qPCR Test</label>
+        <input type="radio" name="order_type" value="5s">
+      </div>
+
+      <div class="selection">
+        <label for="order_type">5S Fluorescent qPCR Test</label>
+        <input type="radio" name="order_type" value="5s">
+      </div>
+
+      <button onclick="submit(event); return false;" type="button">submit</button>
+      <!--</form>-->
+  </div>
+
+  <script src="{{ url_for('static', filename='scripts/add_order.js') }}">
+  </script>
+</body>
+
+</html>
