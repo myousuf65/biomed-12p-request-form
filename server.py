@@ -1,10 +1,12 @@
 import os
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, send_file
 import xmlrpc.client
 import base64
 from dotenv import load_dotenv
 import mysql.connector
 import datetime
+import pandas as pd
+
 
 connector = mysql.connector.connect(
     user = 'ypathan',
@@ -41,9 +43,12 @@ def _12p():
 
 @app.route('/add-order')
 def add_order():
-    pc = request.args.get("pc")
+    
+    # pass query params from project code page to this page
+    pc = request.args.get("pc") 
     pn = request.args.get("pn")
     sal = request.args.get("sal")
+    
     return render_template("add_order.html", pc=pc,pn=pn, sal=sal)
 
 @app.route("/serial_num")
@@ -57,7 +62,6 @@ def serial_num():
     print(nums)
     for item in nums:
         values[item[1]] = item[2]     # type: ignore
-    
     print(values)
 
     return render_template("serial_number.html", values=values)
@@ -70,6 +74,8 @@ def submitorder():
     route = request.form['route']
     quantity = request.form['quantity']
     project_code = request.form['project_code']
+    customer = request.form["customer"]
+    dn_number = request.form["dn-number"]
 
     yy = str(datetime.datetime.now().year)
     yy = yy[2:4]
@@ -79,8 +85,6 @@ def submitorder():
     tt = ''
     sn = ""
 
-    
-    
     if order_type == '16s_oral' or order_type == '16s_gut':
         tt = '1'
         cursor.execute('SELECT val FROM serial_number_storage where id=1')
@@ -128,11 +132,16 @@ def submitorder():
             connector.commit() 
      
     counter = 1 
-    all_nums = []
+    all_test_urls = []
+    all_test_nums = []
+    
     for test_kit_number in range(sn, sn+int(quantity) ):
         sum_val = int(sn)+counter
         s = "{:03d}".format(sum_val)
-        all_nums.append(DOMAIN+"/"+order_type+"?name="+yy+mm+tt+str(s))
+        test_kit_number = yy+mm+tt+str(s)
+        
+        all_test_urls.append(DOMAIN+"/"+order_type+"?name="+test_kit_number)
+        all_test_nums.append(test_kit_number)
         
         today = datetime.datetime.now()
         # Format the date as 'yy-mm-dd'
@@ -140,11 +149,24 @@ def submitorder():
         # Return as a datetime object
         order_date = datetime.datetime.strptime(formatted_date, '%y-%m-%d')
         
-        cursor.execute("INSERT INTO project_test_link (project_id, test_kit_id, route, order_date) values (%s, %s, %s, %s)", (project_code, yy+mm+tt+str(s), route, order_date ))
+        cursor.execute("INSERT INTO project_test_link (project_id, test_kit_id, route, order_date, customer, dn_number) values (%s, %s, %s, %s, %s, %s)", (project_code, yy+mm+tt+str(s), route, order_date, customer, dn_number ))
         counter += 1
     
+    
     connector.commit()
-    return all_nums
+    
+    file_data = {
+        "URLs" : all_test_urls,
+        "Test Kit Numbers" : all_test_nums,
+    }
+    
+    print("===================data============",file_data)
+    
+    df = pd.DataFrame(file_data)
+    df.to_excel("kit_urls.xlsx", index=False)
+    
+    return send_file("kit_urls.xlsx", as_attachment=True)
+    
 
 
 @app.route('/submit-details', methods=['POST'])
@@ -183,7 +205,6 @@ def post_details():
     # cursor.reset()
     cursor.execute('SELECT project_id FROM project_test_link where test_kit_id=%s', [test_kit_id])
     project_id = cursor.fetchone()
-    
     
 
     if project_id == None:
@@ -285,15 +306,51 @@ def post_details():
     if isinstance(new_id, int):
         return render_template("12pnext.html", test_kit_id=test_kit_id)
 
+@app.route("/check-status", methods=['GET','POST'])
+def checkstatus():
+    if request.method == "POST":
+        
+        FORM_RECIEVED = "request_form_received"
+        SPECIMEN_REJECTED = "rejected"
+        SPECIMEN_RECIEVED = "specimen_received"
+        REPORT_READY = "report_ready"
 
+        # odoo auth
+        uid = common.authenticate(DB_NAME, USERNAME, PASSWORD, {})
+        models = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(URL))
+        
+        kitNumber = request.form['test-kit-number']
+        query = models.execute_kw(DB_NAME, uid , PASSWORD,  'project.task', 'search', [[['name', '=', kitNumber ]]])
+        retrievedRecord = models.execute_kw(DB_NAME, uid , PASSWORD,  'project.task', 'read', [query], {'fields' : ['stage_id']})
+        
+        STAGE = ""
+        for record in retrievedRecord:
+            print(record)
+            if record['stage_id'][0] == 52:
+                STAGE = FORM_RECIEVED 
+                print(STAGE)
+            elif record["stage_id"][0] == 63:
+                STAGE = SPECIMEN_REJECTED
+            elif record['stage_id'][0] == 53:
+                STAGE = SPECIMEN_RECIEVED
+            elif record["stage_id"][0] == 54:
+                STAGE = REPORT_READY
+
+        return render_template("order-status.html", stage=STAGE)        
+    return render_template("input-test-kit.html")
+
+@app.route("/test", methods=["GET",])
+def index():
+    status = 'specimen_received'  # This would be dynamically set
+    return render_template('order-status.html', status="report_ready")
 
 @app.route("/12p-questions", methods=['GET'])
 def _12pquestions():
     return render_template("12p_questionnaire.html")
 #
-# @app.route("/7p-questions", methods=['GET'])
-# def _7pquestions():
-#     return render_template("7p_questionnaire.html")
+@app.route("/7p-questions", methods=['GET'])
+def _7pquestions():
+    return render_template("7p_questionnaire.html")
 
 @app.route("/project_code", methods=['GET'])
 def project_code():

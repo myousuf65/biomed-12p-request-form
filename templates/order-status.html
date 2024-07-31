@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Status Page</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/order-status.css') }}">
+</head>
+
+<body>
+  <div class="logo">
+    <img src="{{url_for('static' , filename='images/Biomed.png' ) }}" alt="" />
+  </div>
+  <div class="timeline">
+
+    <div class="stage" id="request-form">
+      <div class="circle">1</div>
+      <div class="label">Request Form Received</div>
+    </div>
+
+    <div class="stage" id="specimen">
+      <div class="circle">2</div>
+      <div class="label">Specimen Received</div>
+    </div>
+
+    <div class="stage" id="final-stage">
+      <div class="circle">3</div>
+      <div class="label" id="final-stage-label">Report Ready</div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", (event) => {
+      // Simulate fetching the status from Flask
+      const status = "{{ stage }}";
+
+      console.log(status)
+      // Update timeline based on status
+      if (status === "request_form_received") {
+        console.log("reached here")
+        document.getElementById("request-form").classList.add("completed");
+
+      } else if (status === "specimen_received") {
+        document.getElementById("request-form").classList.add("completed");
+        document.getElementById("specimen").classList.add("completed");
+      } else if (status === "rejected") {
+        document.getElementById("request-form").classList.add("completed");
+        document.getElementById("specimen").classList.add("completed");
+        document.getElementById("final-stage").classList.add("completed");
+        document.getElementById("final-stage-label").innerText = "Rejected";
+      } else if (status === "report_ready") {
+        document.getElementById("request-form").classList.add("completed");
+        document.getElementById("specimen").classList.add("completed");
+        document.getElementById("final-stage").classList.add("completed");
+        document.getElementById("final-stage-label").innerText = "Report Ready";
+      }
+    });
+  </script>
+</body>
+
+</html>

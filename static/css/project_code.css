@@ -204,3 +204,10 @@
   display:flex;
 }
 
+.test-project-code{
+  width: 10%;
+}
+
+.test-kit-id, .test-route, .test-order-date, .test-order-date, .test-dn-number, .test-customer{
+  width: 20%;
+}
