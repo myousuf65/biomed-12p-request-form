@@ -15,7 +15,7 @@ URL = os.getenv("URL")
 USERNAME = os.getenv("USERNAME")
 PASSWORD = os.getenv("PASSWORD") 
 DB_NAME = os.getenv("DB_NAME")
-DOMAIN = os.getenv("DOMAIN")
+DOMAIN = 'http://request.biomed.hk/'
 
 DB_NAME=os.getenv("DATABASE")
 DB_USER=os.getenv("DB_USER")
