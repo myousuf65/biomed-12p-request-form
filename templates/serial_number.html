@@ -1,61 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{ url_for('static', filename='css/project_code.css') }}"
-    />
-    <title>Serial Number Values</title>
-  </head>
-  <body>
-    {% include "navbar.html" %}
 
-    <div class="pair">
-      <div class="item">16s :</div>
-      <div class="value">{{values['16s']}}</div>
-    </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/project_code.css') }}" />
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static' , filename='images/biomedl.png')  }}">
+  <title>Serial Number Values</title>
+</head>
 
-    <div class="pair">
-      <div class="item">qPCR :</div>
-      <div class="value">{{values['qPCR']}}</div>
-    </div>
+<body>
+  {% include "navbar.html" %}
 
-    <div class="pair">
-      <div class="item">platinum :</div>
-      <div class="value">{{values['platinum']}}</div>
-    </div>
+  <div class="pair">
+    <div class="item">16s :</div>
+    <div class="value">{{values['16s']}}</div>
+  </div>
 
-    <div class="pair">
-      <div class="item">oral qPCR:</div>
-      <div class="value">{{values['oral qPCR']}}</div>
-    </div>
+  <div class="pair">
+    <div class="item">qPCR :</div>
+    <div class="value">{{values['qPCR']}}</div>
+  </div>
 
-    <div class="pair">
-      <div class="item">pet :</div>
-      <div class="value">{{values['pet']}}</div>
-    </div>
+  <div class="pair">
+    <div class="item">platinum :</div>
+    <div class="value">{{values['platinum']}}</div>
+  </div>
 
-    <button
-      onclick="resetSerial()"
-      style="margin-left: 5px"
-      class="btn btn-danger"
-    >
-      reset serial nums
-    </button>
+  <div class="pair">
+    <div class="item">oral qPCR:</div>
+    <div class="value">{{values['oral qPCR']}}</div>
+  </div>
 
-    <script>
-      function resetSerial() {
-        window.location.href = "/reset-serial";
-      }
-    </script>
-  </body>
+  <div class="pair">
+    <div class="item">pet :</div>
+    <div class="value">{{values['pet']}}</div>
+  </div>
+
+  <button onclick="resetSerial()" style="margin-left: 5px" class="btn btn-danger">
+    reset serial nums
+  </button>
+
+  <script>
+    function resetSerial() {
+      window.location.href = "/reset-serial";
+    }
+  </script>
+</body>
+
 </html>

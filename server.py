@@ -7,15 +7,8 @@ import mysql.connector
 import datetime
 import pandas as pd
 
-
-connector = mysql.connector.connect(
-    user = 'ypathan',
-    password = 'nokian876',
-    host = 'localhost',
-    database = 'biomed_db'
-)
-cursor = connector.cursor()
 load_dotenv()
+
 
 API_KEY = os.getenv("API_KEY")
 URL = os.getenv("URL")
@@ -23,6 +16,21 @@ USERNAME = os.getenv("USERNAME")
 PASSWORD = os.getenv("PASSWORD") 
 DB_NAME = os.getenv("DB_NAME")
 DOMAIN = os.getenv("DOMAIN")
+
+DB_NAME=os.getenv("DB_NAME")
+DB_USER=os.getenv("DB_USER")
+DB_PASSWORD=os.getenv("DB_PASSWORD")
+DB_HOST=os.getenv("DB_HOST")
+
+
+connector = mysql.connector.connect(
+    user = DB_USER,
+    password = DB_PASSWORD,
+    host = DB_HOST,
+    database = DB_NAME
+)
+cursor = connector.cursor()
+
 
 common = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(URL))
 
@@ -140,7 +148,7 @@ def submitorder():
         s = "{:03d}".format(sum_val)
         test_kit_number = yy+mm+tt+str(s)
         
-        all_test_urls.append(DOMAIN+"/"+order_type+"?name="+test_kit_number)
+        all_test_urls.append(DOMAIN+order_type+"?name="+test_kit_number)
         all_test_nums.append(test_kit_number)
         
         today = datetime.datetime.now()
