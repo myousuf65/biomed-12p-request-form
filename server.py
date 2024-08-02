@@ -17,7 +17,7 @@ PASSWORD = os.getenv("PASSWORD")
 DB_NAME = os.getenv("DB_NAME")
 DOMAIN = os.getenv("DOMAIN")
 
-DB_NAME=os.getenv("DB_NAME")
+DB_NAME=os.getenv("DATABASE")
 DB_USER=os.getenv("DB_USER")
 DB_PASSWORD=os.getenv("DB_PASSWORD")
 DB_HOST=os.getenv("DB_HOST")
