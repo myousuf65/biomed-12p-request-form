@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Probiotics Panel Request Form</title>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static' , filename='images/biomedl.png')  }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/form.css') }}">
 
 
@@ -29,7 +30,8 @@
               <p style="text-align: center;">Please Enter the number you see on the test kit</p>
               <div class="test-kit-number">
                 <div class="kit-info">
-                  <input class="form-control" type="text" name="name" id='name' placeholder="2024062045" id="kitnum" required>
+                  <input class="form-control" type="text" name="name" id='name' placeholder="2024062045" id="kitnum"
+                    required>
                 </div>
 
                 <div class="kit-image">
@@ -74,11 +76,13 @@
               </div>
 
               <div class="div-container">
-                <input class="form-control" type="number" name="height" placeholder="Enter height in centimeters (185)" required>
+                <input class="form-control" type="number" name="height" placeholder="Enter height in centimeters (185)"
+                  required>
               </div>
 
               <div class="div-container">
-                <input class="form-control" type="number" name="weight" placeholder="Enter weight in kilograms (80)" required>
+                <input class="form-control" type="number" name="weight" placeholder="Enter weight in kilograms (80)"
+                  required>
               </div>
 
               <div class="div-container">
@@ -87,9 +91,9 @@
 
               <div class="div-container">
                 <label class="mb-3 mr-1" for="ethnicity">Ethnicity: </label><br>
-                <div class="choice_background" >
-                  <input type="radio" class="btn-check" name="ethnicity" id="chinese" value="Chinese"
-                    autocomplete="off" required>
+                <div class="choice_background">
+                  <input type="radio" class="btn-check" name="ethnicity" id="chinese" value="Chinese" autocomplete="off"
+                    required>
                   <label class="btn btn-sm btn-outline-secondary" for="chinese">Chinese</label>
                   <input type="radio" class="btn-check" name="ethnicity" id="east_asian" value="East Asian"
                     autocomplete="off" required>
@@ -97,8 +101,8 @@
                   <input type="radio" class="btn-check" name="ethnicity" id="southeast_asian" value="Southeast Asian"
                     autocomplete="off" required>
                   <label class="btn btn-sm btn-outline-secondary" for="southeast_asian">Southeast Asian</label>
-                  <input type="radio" class="btn-check" name="ethnicity" id="african" value="African"
-                    autocomplete="off" required>
+                  <input type="radio" class="btn-check" name="ethnicity" id="african" value="African" autocomplete="off"
+                    required>
                   <label class="btn btn-sm btn-outline-secondary" for="african">African</label>
                   <br>
                   <input type="radio" class="btn-check" name="ethnicity" id="european" value="European"
@@ -145,9 +149,11 @@
               <br><br>
               <div class="div-container">
                 <label for="previous_test">Has participant ever participated in our test(s)?</label>
-                <input type="radio" class="btn-check" name="previous_test" id="yes" value="yes" autocomplete="off" required>
+                <input type="radio" class="btn-check" name="previous_test" id="yes" value="yes" autocomplete="off"
+                  required>
                 <label class="btn btn-sm btn-outline-secondary" for="yes">Yes</label>
-                <input type="radio" class="btn-check" name="previous_test" id="no" value="no" autocomplete="off" required>
+                <input type="radio" class="btn-check" name="previous_test" id="no" value="no" autocomplete="off"
+                  required>
                 <label class="btn btn-sm btn-outline-secondary" for="no">No</label>
               </div>
 
@@ -364,7 +370,7 @@
 </div>
       `
 
-     
+
       testkitid = document.querySelector("input[name=name]").value
       document.querySelector('.modal-input').innerHTML = data;
     });
@@ -381,7 +387,7 @@
       document.getElementById('myModal').style.display = 'none';
       document.querySelector('.requires-validation').removeEventListener('submit', preventDefault);
       document.querySelector('.requires-validation').submit();
-//      window.location.href = `/12p-questions?name=${testkitid}`
+      //      window.location.href = `/12p-questions?name=${testkitid}`
     };
 
     window.onclick = function (event) {
@@ -393,6 +399,24 @@
     function preventDefault(event) {
       event.preventDefault();
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const url = window.location.href;
+
+      // Create a URL object
+      const urlObj = new URL(url);
+
+      // Get the query parameters
+      const urlParams = new URLSearchParams(urlObj.search);
+
+      // Get the value of the 'name' parameter
+      const nameParam = urlParams.get('name');
+
+      // Display the value in an alert
+      if (nameParam !== null) {
+        document.getElementById("name").value = nameParam
+      }
+    })
   </script>
 </body>
 

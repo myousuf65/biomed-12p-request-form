@@ -13,18 +13,7 @@
 
 <body>
 
-  <nav class="navbar navbar-light p-3" style="background-color: #e3f2fd;">
-    <a class="navbar-brand" href="#">BioMed Technology Holdings Limited</a>
-
-
-    <div class="right-div" id="navbarNav">
-      <button class="btn btn-primary">Add Project Code</button>
-      <a class="navbar-brand" href="/serial_num">Serial Nums</a>
-
-      <input type="search" class="form-control rounded" onkeydown="search(this)" placeholder="Search"
-        aria-label="Search" aria-describedby="search-addon" style="width: 50%;" />
-    </div>
-  </nav>
+  {% include "navbar.html" %}
 
 
   {% for item in all_ans %}
