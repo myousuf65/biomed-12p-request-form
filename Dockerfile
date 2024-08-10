@@ -7,3 +7,12 @@
 # EXPOSE 8000
 # CMD python ./server.py
 
+FROM FROM alpine:3.14
+
+WORKDIR /app
+COPY . /app 
+
+RUN apt update 
+RUN 
+
+

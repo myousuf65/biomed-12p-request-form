@@ -6,36 +6,38 @@ from dotenv import load_dotenv
 import mysql.connector
 import datetime
 import pandas as pd
+import mysql.connector
 
+# env variables
 load_dotenv()
-
-
 API_KEY = os.getenv("API_KEY")
 URL = os.getenv("URL")
 USERNAME = os.getenv("USERNAME")
 PASSWORD = os.getenv("PASSWORD") 
 DB_NAME = os.getenv("DB_NAME")
 DOMAIN = 'http://request.biomed.hk/'
-
-DB_NAME=os.getenv("DATABASE")
+DATABASE=os.getenv("DATABASE")
 DB_USER=os.getenv("DB_USER")
 DB_PASSWORD=os.getenv("DB_PASSWORD")
 DB_HOST=os.getenv("DB_HOST")
-
-
-connector = mysql.connector.connect(
-    user = DB_USER,
-    password = DB_PASSWORD,
-    host = DB_HOST,
-    database = DB_NAME
-)
-cursor = connector.cursor()
 
 
 common = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(URL))
 
 
 app = Flask(__name__)
+
+
+def db_connect():
+    connector = mysql.connector.connect(
+        user = DB_USER,
+        password = DB_PASSWORD,
+        host = DB_HOST,
+        database = DATABASE
+    )
+    cursor = connector.cursor()
+    return cursor, connector
+
 
 # udomain cpanel auto route first page
 @app.route('/index.php')
@@ -63,10 +65,13 @@ def add_order():
 def serial_num():
     
     values = {}
-   
+    cursor, conn = db_connect()
+
     cursor.execute("SELECT * FROM serial_number_storage")
     nums = cursor.fetchall()
-    connector.commit()
+    conn.commit()
+    conn.close()
+
     print(nums)
     for item in nums:
         values[item[1]] = item[2]     # type: ignore
@@ -77,6 +82,7 @@ def serial_num():
 
 @app.route('/add-order', methods = ['POST'])
 def submitorder():
+    cursor, conn = db_connect()
     
     order_type = request.form['order_type']
     route = request.form['route']
@@ -95,28 +101,30 @@ def submitorder():
 
     if order_type == '16s_oral' or order_type == '16s_gut':
         tt = '1'
+        
+
         cursor.execute('SELECT val FROM serial_number_storage where id=1')
         sn = cursor.fetchone()[0]
-        connector.commit()
+        conn.commit()
             
         new_val = tuple()
         if sn is not None:
             new_val = (int(sn), int(quantity))
             nv = sum(new_val)
             cursor.execute('UPDATE serial_number_storage SET val= %s where id=1', [int(nv)])
-            connector.commit() 
+            conn.commit() 
     
     elif order_type == '7p' or order_type == '11p' or order_type == '12p' or order_type == '13p' or order_type == 'obesity' or order_type == 'immunity':
         tt = '2'
         cursor.execute('SELECT val FROM serial_number_storage where id=2')
         sn = cursor.fetchone()[0]
-        connector.commit()
+        conn.commit()
         new_val = tuple()
         if sn is not None:
             new_val = (int(sn), int(quantity))
             nv = sum(new_val)
             cursor.execute('UPDATE serial_number_storage SET val= %s where id=2', [int(nv)])
-            connector.commit()  
+            conn.commit()  
     elif order_type == 'petcare':
         tt = '3'
         cursor.execute('SELECT val FROM serial_number_storage where id=5')
@@ -126,18 +134,18 @@ def submitorder():
             new_val = (int(sn), int(quantity))
             nv = sum(new_val)
             cursor.execute('UPDATE serial_number_storage SET val= %s where id=5', [int(nv)])
-            connector.commit() 
+            conn.commit() 
     elif order_type == 'platinum':
         tt = '5'
         cursor.execute('SELECT val FROM serial_number_storage where id=3')
         sn:int = cursor.fetchone()[0]
-        connector.commit()
+        conn.commit()
         new_val = tuple()
         if sn is not None:
             new_val = (int(sn), int(quantity))
             nv = sum(new_val)
             cursor.execute('UPDATE serial_number_storage SET val= %s where id=3', [int(nv)])
-            connector.commit() 
+            conn.commit() 
      
     counter = 1 
     all_test_urls = []
@@ -161,8 +169,9 @@ def submitorder():
         counter += 1
     
     
-    connector.commit()
-    
+    conn.commit()
+    conn.close()
+
     file_data = {
         "URLs" : all_test_urls,
         "Test Kit Numbers" : all_test_nums,
@@ -179,6 +188,9 @@ def submitorder():
 
 @app.route('/submit-details', methods=['POST'])
 def post_details():
+    
+    cursor , conn = db_connect()
+
     uid = common.authenticate(DB_NAME, USERNAME, PASSWORD, {})
     models = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(URL))
     formdata = request.form
@@ -235,7 +247,7 @@ def post_details():
         patient_id = "P"+str(fetched_num)
         
         cursor.execute('UPDATE serial_number_storage SET val=%s WHERE id=6', [fetched_num] )
-        connector.commit()
+        conn.commit()
     
      
         cursor.execute('''
@@ -277,7 +289,8 @@ def post_details():
             postal_code,
             medical_history
         ])
-        connector.commit()
+        conn.commit()
+        conn.close()
     else:
         patient_id = patient_id[0]
 
@@ -363,18 +376,23 @@ def _7pquestions():
 @app.route("/project_code", methods=['GET'])
 def project_code():
 
-
+    
+    cursor , conn = db_connect()
     #TODO:  pagination
     
     cursor.execute('SELECT * FROM project_code')
         
     rows = cursor.fetchall()
-    connector.commit()
+    conn.commit()
+    conn.close()
     return render_template("project_code.html", data=rows)
 
 @app.route("/submit-questions", methods=['POST'])
 def submit_questions():
     data = request.form
+    
+    cursor , conn = db_connect()
+
     cursor.execute('''
         INSERT INTO q_answers (
             test_kit_id,
@@ -419,7 +437,8 @@ def submit_questions():
         data['question16'],
         data['question17']
     ])
-    connector.commit()
+    conn.commit()
+    conn.close()
     # return an answer confirmation page
     return render_template("12pend.html")
 
@@ -429,27 +448,38 @@ def test():
 
 @app.route('/all_orders')
 def allorders():
+    cursor, conn = db_connect()
+
     cursor.execute('SELECT * FROM project_test_link')
     allorders = cursor.fetchall()
-    connector.commit()
+    conn.commit()
+    conn.close()
     return render_template("project_test_link.html", allorders=allorders)
 
 @app.route("/survey")
 def survey():
+
+    cursor, conn = db_connect()
+
     cursor.execute('SELECT * FROM q_answers')
     all_ans = cursor.fetchall()
+    conn.close()
     print(all_ans)
     
     return render_template("allsurvey.html", all_ans = all_ans)
 
 @app.route('/reset-serial')
 def resetSerial():
+    
+    cursor, conn = db_connect()
+
     cursor.execute('''
                 UPDATE serial_number_storage
                 SET val = 0
                 WHERE id IN (1, 2, 3, 4, 5);
                     ''')
-    connector.commit()
+    conn.commit()
+    conn.close()
     return redirect("/serial_num")
 
 
